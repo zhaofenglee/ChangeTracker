@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Import Project="..\..\common.props" />
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <RootNamespace>JS.Abp.ChangeTracker</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.0" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.Sqlite" Version="7.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\JS.Abp.ChangeTracker.EntityFrameworkCore\JS.Abp.ChangeTracker.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="..\JS.Abp.ChangeTracker.TestBase\JS.Abp.ChangeTracker.TestBase.csproj" />
+  </ItemGroup>
+
+</Project>

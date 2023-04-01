@@ -1,0 +1,7 @@
+{
+  "modules": {
+    "JS.Abp.ChangeTracker": {
+      "path": "JS.Abp.ChangeTracker.abpmdl.json"
+    }
+  }
+}

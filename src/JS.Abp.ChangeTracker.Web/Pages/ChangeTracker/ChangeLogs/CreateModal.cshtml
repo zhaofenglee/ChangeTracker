@@ -1,0 +1,38 @@
+@page
+@using Microsoft.AspNetCore.Mvc.Localization
+@using JS.Abp.ChangeTracker.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal
+@using JS.Abp.ChangeTracker.Web.Pages.ChangeTracker.ChangeLogs
+@using JS.Abp.ChangeTracker.ChangeLogs;
+@using System.Globalization
+@inject IHtmlLocalizer<ChangeTrackerResource> L
+@model CreateModalModel
+@{
+    Layout = null;
+}
+
+<form data-ajaxForm="true" asp-page="/ChangeTracker/ChangeLogs/CreateModal" autocomplete="off">
+    <abp-modal id="ChangeLogCreateModal">
+        <abp-modal-header title="@L["NewChangeLog"].Value"></abp-modal-header>
+
+        <abp-modal-body>
+                    
+            <abp-input asp-for="ChangeLog.UserId"  />
+
+            <abp-input asp-for="ChangeLog.UserName"  />
+
+            <abp-input asp-for="ChangeLog.Description"  />
+
+            <abp-select asp-for="ChangeLog.ChangeType"  />
+
+            <abp-input asp-for="ChangeLog.SystemId"  />
+
+            <abp-input asp-for="ChangeLog.SystemName"  />
+
+                    
+                
+        </abp-modal-body>
+
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

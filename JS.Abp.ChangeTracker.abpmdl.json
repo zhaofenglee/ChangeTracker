@@ -1,0 +1,111 @@
+{
+  "folders": {
+    "items": {
+      "src": {},
+      "test": {},
+      "host": {}
+    }
+  },
+  "packages": {
+    "JS.Abp.ChangeTracker.Domain.Shared": {
+      "path": "src/JS.Abp.ChangeTracker.Domain.Shared/JS.Abp.ChangeTracker.Domain.Shared.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.Domain": {
+      "path": "src/JS.Abp.ChangeTracker.Domain/JS.Abp.ChangeTracker.Domain.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.Application.Contracts": {
+      "path": "src/JS.Abp.ChangeTracker.Application.Contracts/JS.Abp.ChangeTracker.Application.Contracts.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.Application": {
+      "path": "src/JS.Abp.ChangeTracker.Application/JS.Abp.ChangeTracker.Application.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.EntityFrameworkCore": {
+      "path": "src/JS.Abp.ChangeTracker.EntityFrameworkCore/JS.Abp.ChangeTracker.EntityFrameworkCore.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.MongoDB": {
+      "path": "src/JS.Abp.ChangeTracker.MongoDB/JS.Abp.ChangeTracker.MongoDB.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.HttpApi": {
+      "path": "src/JS.Abp.ChangeTracker.HttpApi/JS.Abp.ChangeTracker.HttpApi.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.HttpApi.Client": {
+      "path": "src/JS.Abp.ChangeTracker.HttpApi.Client/JS.Abp.ChangeTracker.HttpApi.Client.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.TestBase": {
+      "path": "test/JS.Abp.ChangeTracker.TestBase/JS.Abp.ChangeTracker.TestBase.abppkg.json",
+      "folder": "test"
+    },
+    "JS.Abp.ChangeTracker.EntityFrameworkCore.Tests": {
+      "path": "test/JS.Abp.ChangeTracker.EntityFrameworkCore.Tests/JS.Abp.ChangeTracker.EntityFrameworkCore.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "JS.Abp.ChangeTracker.MongoDB.Tests": {
+      "path": "test/JS.Abp.ChangeTracker.MongoDB.Tests/JS.Abp.ChangeTracker.MongoDB.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "JS.Abp.ChangeTracker.Domain.Tests": {
+      "path": "test/JS.Abp.ChangeTracker.Domain.Tests/JS.Abp.ChangeTracker.Domain.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "JS.Abp.ChangeTracker.Application.Tests": {
+      "path": "test/JS.Abp.ChangeTracker.Application.Tests/JS.Abp.ChangeTracker.Application.Tests.abppkg.json",
+      "folder": "test"
+    },
+    "JS.Abp.ChangeTracker.HttpApi.Host": {
+      "path": "host/JS.Abp.ChangeTracker.HttpApi.Host/JS.Abp.ChangeTracker.HttpApi.Host.abppkg.json",
+      "folder": "host"
+    },
+    "JS.Abp.ChangeTracker.Web": {
+      "path": "src/JS.Abp.ChangeTracker.Web/JS.Abp.ChangeTracker.Web.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.HttpApi.Client.ConsoleTestApp": {
+      "path": "test/JS.Abp.ChangeTracker.HttpApi.Client.ConsoleTestApp/JS.Abp.ChangeTracker.HttpApi.Client.ConsoleTestApp.abppkg.json",
+      "folder": "test"
+    },
+    "JS.Abp.ChangeTracker.Web.Host": {
+      "path": "host/JS.Abp.ChangeTracker.Web.Host/JS.Abp.ChangeTracker.Web.Host.abppkg.json",
+      "folder": "host"
+    },
+    "JS.Abp.ChangeTracker.AuthServer": {
+      "path": "host/JS.Abp.ChangeTracker.AuthServer/JS.Abp.ChangeTracker.AuthServer.abppkg.json",
+      "folder": "host"
+    },
+    "JS.Abp.ChangeTracker.Host.Shared": {
+      "path": "host/JS.Abp.ChangeTracker.Host.Shared/JS.Abp.ChangeTracker.Host.Shared.abppkg.json",
+      "folder": "host"
+    },
+    "JS.Abp.ChangeTracker.Web.Unified": {
+      "path": "host/JS.Abp.ChangeTracker.Web.Unified/JS.Abp.ChangeTracker.Web.Unified.abppkg.json",
+      "folder": "host"
+    },
+    "JS.Abp.ChangeTracker.Blazor": {
+      "path": "src/JS.Abp.ChangeTracker.Blazor/JS.Abp.ChangeTracker.Blazor.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.Blazor.Host": {
+      "path": "host/JS.Abp.ChangeTracker.Blazor.Host/JS.Abp.ChangeTracker.Blazor.Host.abppkg.json",
+      "folder": "host"
+    },
+    "JS.Abp.ChangeTracker.Blazor.Server": {
+      "path": "src/JS.Abp.ChangeTracker.Blazor.Server/JS.Abp.ChangeTracker.Blazor.Server.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.Blazor.WebAssembly": {
+      "path": "src/JS.Abp.ChangeTracker.Blazor.WebAssembly/JS.Abp.ChangeTracker.Blazor.WebAssembly.abppkg.json",
+      "folder": "src"
+    },
+    "JS.Abp.ChangeTracker.Blazor.Server.Host": {
+      "path": "host/JS.Abp.ChangeTracker.Blazor.Server.Host/JS.Abp.ChangeTracker.Blazor.Server.Host.abppkg.json",
+      "folder": "host"
+    }
+  }
+}

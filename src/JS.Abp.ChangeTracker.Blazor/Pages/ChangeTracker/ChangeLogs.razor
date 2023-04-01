@@ -1,0 +1,283 @@
+@page "/ChangeTracker/ChangeLogs"
+
+
+
+@attribute [Authorize(ChangeTrackerPermissions.ChangeLogs.Default)]
+@using global::JS.Abp.ChangeTracker.ChangeLogs
+@using global::JS.Abp.ChangeTracker.Localization
+@using global::JS.Abp.ChangeTracker.Shared
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Components.Web
+@using Blazorise
+@using Blazorise.Components
+@using Blazorise.DataGrid
+@using Volo.Abp.BlazoriseUI
+@using Volo.Abp.BlazoriseUI.Components
+@using Volo.Abp.ObjectMapping
+@using Volo.Abp.AspNetCore.Components.Messages
+@using Volo.Abp.AspNetCore.Components.Web.Theming.Layout
+@using global::JS.Abp.ChangeTracker.Permissions
+@using Microsoft.AspNetCore.Components
+@using Volo.Abp.AspNetCore.Components.Web
+@using Volo.Abp.Http.Client
+@inherits ChangeTrackerComponentBase
+@inject IChangeLogsAppService ChangeLogsAppService
+@inject IUiMessageService UiMessageService
+@inject IRemoteServiceConfigurationProvider RemoteServiceConfigurationProvider
+@inject NavigationManager NavigationManager
+@using JS.Abp.ChangeTracker.ChangeTypes
+
+
+@* ************************* PAGE HEADER ************************* *@
+<PageHeader Title="@L["ChangeLogs"]" BreadcrumbItems="BreadcrumbItems" Toolbar="Toolbar">
+
+</PageHeader>
+
+@* ************************* SEARCH ************************* *@
+<Card>
+    <CardBody>
+        <Form id="ChangeLogSearchForm" class="mb-3">
+            <Addons>
+                <Addon AddonType="AddonType.Body">
+                    <TextEdit @bind-Text="@Filter.FilterText"
+                              Autofocus="true"
+                              Placeholder="@L["Search"]">
+                    </TextEdit>
+                </Addon>
+                <Addon AddonType="AddonType.End">
+                    <SubmitButton Form="ChangeLogSearchForm" Clicked="GetChangeLogsAsync">
+                        <Icon Name="IconName.Search" Class="me-1"></Icon>@L["Search"]
+                    </SubmitButton>
+                </Addon>
+            </Addons>
+        </Form>
+    </CardBody>
+</Card>
+
+@* ************************* DATA GRID ************************* *@
+<Card>
+    <CardBody>
+        <DataGrid TItem="ChangeLogDto"
+                  Data="ChangeLogList"
+                  ReadData="OnDataGridReadAsync"
+                  TotalItems="TotalCount"
+                  ShowPager="true"
+                  Responsive="true"
+                  PageSize="PageSize">
+            <DataGridColumns>
+                <DataGridEntityActionsColumn TItem="ChangeLogDto" @ref="@EntityActionsColumn">
+                    <DisplayTemplate>
+                        <EntityActions TItem="ChangeLogDto" EntityActionsColumn="@EntityActionsColumn">
+                            <EntityAction TItem="ChangeLogDto"
+                                          Visible="@CanEditChangeLog"
+                                          Clicked="async () => await OpenEditChangeLogModalAsync(context)"
+                                          Text="@L["Edit"]"></EntityAction>
+                            <EntityAction TItem="ChangeLogDto"
+                                          Visible="@CanDeleteChangeLog"
+                                          Clicked="() => DeleteChangeLogAsync(context)"
+                                          ConfirmationMessage="@(()=> L["DeleteConfirmationMessage"])"
+                                          Text="@L["Delete"]"></EntityAction>
+                        </EntityActions>
+                    </DisplayTemplate>
+                </DataGridEntityActionsColumn>
+               
+                <DataGridColumn TItem="ChangeLogDto"
+                      Field="SystemName"
+                      Caption="@L["SystemName"]">
+              </DataGridColumn>
+
+
+              <DataGridColumn TItem="ChangeLogDto"
+                      Field="UserName"
+                      Caption="@L["UserName"]">
+              </DataGridColumn>
+
+               <DataGridColumn TItem="ChangeLogDto"
+                      Field="ChangeType"
+                      Caption="@L["ChangeType"]">
+                    <DisplayTemplate>
+                        @L[$"Enum:ChangeType.{context.ChangeType.ToString("d")}"]
+                    </DisplayTemplate>
+              </DataGridColumn>
+
+                <DataGridColumn TItem="ChangeLogDto"
+                                Field="CreationTime"
+                                Caption="@L["CL:CreationTime"]">
+                </DataGridColumn>
+
+              <DataGridColumn TItem="ChangeLogDto"
+                      Field="Description"
+                      Caption="@L["Description"]">
+              </DataGridColumn>
+
+            </DataGridColumns>
+        </DataGrid>
+    </CardBody>
+</Card>
+
+@* ************************* CREATE MODAL ************************* *@
+<Modal @ref="CreateChangeLogModal" Closing="@CreateChangeLogModal.CancelClosingModalWhenFocusLost">
+    <ModalContent Centered="true">
+        <Form id="CreateChangeLogForm">
+            <ModalHeader>
+                <ModalTitle>@L["NewChangeLog"]</ModalTitle>
+                <CloseButton Clicked="CloseCreateChangeLogModalAsync" />
+            </ModalHeader>
+            <ModalBody>
+                <Validations @ref="@NewChangeLogValidations"
+                            Mode="ValidationMode.Auto"
+                            Model="@NewChangeLog"
+                            ValidateOnLoad="false">
+                     
+                    
+
+
+                    <Validation>
+                        <Field>
+                            <FieldLabel>@L["UserName"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewChangeLog.UserName" MaxLength="ChangeLogConsts.UserNameMaxLength">
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+
+
+                    <Validation>
+                        <Field>
+                            <FieldLabel>@L["Description"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewChangeLog.Description" >
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+
+
+                    <Field>
+                        <FieldLabel>@L["ChangeType"]</FieldLabel>
+                        <Select TValue="ChangeType" @bind-SelectedValue="@NewChangeLog.ChangeType">
+                            @foreach (var itemValue in Enum.GetValues(typeof(ChangeType)))
+                            {
+                                <SelectItem TValue="ChangeType" Value="@((ChangeType) itemValue)">
+                                    @L[$"Enum:ChangeType.{((ChangeType) itemValue).ToString("d")}"]
+                                </SelectItem>
+                            }
+                        </Select>
+                    </Field>
+
+
+
+
+                    <Validation>
+                        <Field>
+                            <FieldLabel>@L["SystemName"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewChangeLog.SystemName" MaxLength="ChangeLogConsts.SystemNameMaxLength">
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+
+
+                    
+                    
+                </Validations>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary"
+                        Clicked="CloseCreateChangeLogModalAsync">
+                    @L["Cancel"]
+                </Button>
+                <SubmitButton Form="CreateChangeLogForm" Clicked="CreateChangeLogAsync" />
+            </ModalFooter>
+        </Form>
+    </ModalContent>
+</Modal>
+
+@* ************************* EDIT MODAL ************************* *@
+<Modal @ref="EditChangeLogModal" Closing="@EditChangeLogModal.CancelClosingModalWhenFocusLost">
+    <ModalContent Centered="true">
+        <Form id="EditChangeLogForm">
+            <ModalHeader>
+                <ModalTitle>@L["Update"]</ModalTitle>
+                <CloseButton Clicked="CloseEditChangeLogModalAsync" />
+            </ModalHeader>
+            <ModalBody>
+                <Validations @ref="@EditingChangeLogValidations"
+                            Mode="ValidationMode.Auto"
+                            Model="@EditingChangeLog"
+                            ValidateOnLoad="false">
+                     
+                    
+
+
+                    <Validation>
+                        <Field>
+                            <FieldLabel>@L["UserName"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingChangeLog.UserName" MaxLength="ChangeLogConsts.UserNameMaxLength">
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+
+
+                    <Validation>
+                        <Field>
+                            <FieldLabel>@L["Description"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingChangeLog.Description" >
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+
+
+                    <Field>
+                        <FieldLabel>@L["ChangeType"]</FieldLabel>
+                        <Select TValue="ChangeType" @bind-SelectedValue="@EditingChangeLog.ChangeType">
+                            @foreach (var itemValue in Enum.GetValues(typeof(ChangeType)))
+                            {
+                                <SelectItem TValue="ChangeType" Value="@((ChangeType) itemValue)">
+                                    @L[$"Enum:ChangeType.{((ChangeType) itemValue).ToString("d")}"]
+                                </SelectItem>
+                            }
+                        </Select>
+                    </Field>
+
+
+
+
+                    <Validation>
+                        <Field>
+                            <FieldLabel>@L["SystemName"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingChangeLog.SystemName" MaxLength="ChangeLogConsts.SystemNameMaxLength">
+                                <Feedback>
+                                    <ValidationError />
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+
+
+                    
+                    
+                </Validations>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary"
+                        Clicked="CloseEditChangeLogModalAsync">
+                    @L["Cancel"]
+                </Button>
+                <SubmitButton Form="CreateChangeLogForm" Clicked="UpdateChangeLogAsync" />
+            </ModalFooter>
+        </Form>
+    </ModalContent>
+</Modal>

@@ -1,0 +1,65 @@
+﻿@using global::JS.Abp.ChangeTracker.ChangeLogs
+@using global::JS.Abp.ChangeTracker.Localization
+@using global::JS.Abp.ChangeTracker.Shared
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.Extensions.Localization
+@using Microsoft.AspNetCore.Components.Web
+@using Blazorise
+@using Blazorise.Components
+@using Blazorise.DataGrid
+@using Volo.Abp.BlazoriseUI
+@using Volo.Abp.BlazoriseUI.Components
+@using Volo.Abp.ObjectMapping
+@using Volo.Abp.AspNetCore.Components.Messages
+@using Volo.Abp.AspNetCore.Components.Web.Theming.Layout
+@using global::JS.Abp.ChangeTracker.Permissions
+@using Microsoft.AspNetCore.Components
+@using Volo.Abp.AspNetCore.Components.Web
+@using Volo.Abp.Http.Client
+@inherits ChangeTrackerComponentBase
+@inject IChangeLogsAppService ChangeLogsAppService
+@inject IUiMessageService UiMessageService
+@inject IRemoteServiceConfigurationProvider RemoteServiceConfigurationProvider
+@inject NavigationManager NavigationManager
+@using JS.Abp.ChangeTracker.ChangeTypes
+
+
+@* ************************* DATA GRID ************************* *@
+<Card>
+    <CardBody>
+        <DataGrid TItem="ChangeLogDto"
+                  Data="ChangeLogList"
+                  ReadData="OnDataGridReadAsync"
+                  TotalItems="TotalCount"
+                  ShowPager="true"
+                  Responsive="true"
+                  PageSize="PageSize">
+            <DataGridColumns>
+
+                <DataGridColumn TItem="ChangeLogDto"
+                                Field="CreationTime"
+                                Caption="@L["CL:CreationTime"]">
+                </DataGridColumn>
+
+                <DataGridColumn TItem="ChangeLogDto"
+                                Field="UserName"
+                                Caption="@L["UserName"]">
+                </DataGridColumn>
+
+                <DataGridColumn TItem="ChangeLogDto"
+                                Field="ChangeType"
+                                Caption="@L["ChangeType"]">
+                    <DisplayTemplate>
+                        @L[$"Enum:ChangeType.{context.ChangeType.ToString("d")}"]
+                    </DisplayTemplate>
+                </DataGridColumn>
+
+                <DataGridColumn TItem="ChangeLogDto"
+                                Field="Description"
+                                Caption="@L["Description"]">
+                </DataGridColumn>
+
+            </DataGridColumns>
+        </DataGrid>
+    </CardBody>
+</Card>

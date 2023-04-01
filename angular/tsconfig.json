@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.prod.json",
+  "compilerOptions": {
+    "paths": {
+      "@j-s.Abp/change-tracker": [
+        "projects/change-tracker/src/public-api.ts"
+      ],
+      "@j-s.Abp/change-tracker/config": [
+        "projects/change-tracker/config/src/public-api.ts"
+      ],
+      "@proxy": ["projects/change-tracker/src/lib/proxy/index.ts"],
+      "@proxy/*": ["projects/change-tracker/src/lib/proxy/*"]
+    }
+  }
+}
