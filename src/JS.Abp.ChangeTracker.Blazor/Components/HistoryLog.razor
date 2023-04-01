@@ -25,41 +25,44 @@
 
 
 @* ************************* DATA GRID ************************* *@
-<Card>
-    <CardBody>
-        <DataGrid TItem="ChangeLogDto"
-                  Data="ChangeLogList"
-                  ReadData="OnDataGridReadAsync"
-                  TotalItems="TotalCount"
-                  ShowPager="true"
-                  Responsive="true"
-                  PageSize="PageSize">
-            <DataGridColumns>
+@if (CanReadChangeLog)
+{
+    <Card>
+        <CardBody>
+            <DataGrid TItem="ChangeLogDto"
+                      Data="ChangeLogList"
+                      ReadData="OnDataGridReadAsync"
+                      TotalItems="TotalCount"
+                      ShowPager="true"
+                      Responsive="true"
+                      PageSize="PageSize">
+                <DataGridColumns>
 
-                <DataGridColumn TItem="ChangeLogDto"
-                                Field="CreationTime"
-                                Caption="@L["CL:CreationTime"]">
-                </DataGridColumn>
+                    <DataGridColumn TItem="ChangeLogDto"
+                                    Field="CreationTime"
+                                    Caption="@L["CL:CreationTime"]">
+                    </DataGridColumn>
 
-                <DataGridColumn TItem="ChangeLogDto"
-                                Field="UserName"
-                                Caption="@L["UserName"]">
-                </DataGridColumn>
+                    <DataGridColumn TItem="ChangeLogDto"
+                                    Field="UserName"
+                                    Caption="@L["UserName"]">
+                    </DataGridColumn>
 
-                <DataGridColumn TItem="ChangeLogDto"
-                                Field="ChangeType"
-                                Caption="@L["ChangeType"]">
-                    <DisplayTemplate>
-                        @L[$"Enum:ChangeType.{context.ChangeType.ToString("d")}"]
-                    </DisplayTemplate>
-                </DataGridColumn>
+                    <DataGridColumn TItem="ChangeLogDto"
+                                    Field="ChangeType"
+                                    Caption="@L["ChangeType"]">
+                        <DisplayTemplate>
+                            @L[$"Enum:ChangeType.{context.ChangeType.ToString("d")}"]
+                        </DisplayTemplate>
+                    </DataGridColumn>
 
-                <DataGridColumn TItem="ChangeLogDto"
-                                Field="Description"
-                                Caption="@L["Description"]">
-                </DataGridColumn>
+                    <DataGridColumn TItem="ChangeLogDto"
+                                    Field="Description"
+                                    Caption="@L["Description"]">
+                    </DataGridColumn>
 
-            </DataGridColumns>
-        </DataGrid>
-    </CardBody>
-</Card>
+                </DataGridColumns>
+            </DataGrid>
+        </CardBody>
+    </Card>
+}

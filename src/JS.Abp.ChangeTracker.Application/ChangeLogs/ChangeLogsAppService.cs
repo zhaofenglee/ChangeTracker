@@ -34,7 +34,6 @@ namespace JS.Abp.ChangeTracker.ChangeLogs
             _changeLogRepository = changeLogRepository;
             _changeLogManager = changeLogManager;
         }
-        [AllowAnonymous]
         public virtual async Task<PagedResultDto<ChangeLogDto>> GetListAsync(GetChangeLogsInput input)
         {
             var totalCount = await _changeLogRepository.GetCountAsync(input.FilterText, input.UserId, input.UserName, input.Description, input.ChangeType, input.SystemId, input.SystemName);

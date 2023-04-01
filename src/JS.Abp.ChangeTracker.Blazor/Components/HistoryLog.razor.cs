@@ -30,7 +30,7 @@ namespace JS.Abp.ChangeTracker.Blazor.Components
     public partial class HistoryLog
     {
         [Parameter] public Guid SystemId { get; set; }
-
+        private bool CanReadChangeLog { get; set; }
         private IReadOnlyList<ChangeLogDto> ChangeLogList { get; set; }
         private int PageSize { get; } = LimitedResultRequestDto.DefaultMaxResultCount;
         private int CurrentPage { get; set; } = 1;
@@ -52,9 +52,13 @@ namespace JS.Abp.ChangeTracker.Blazor.Components
 
         protected override async Task OnInitializedAsync()
         {
-           
+            await SetPermissionsAsync();
         }
-
+        private async Task SetPermissionsAsync()
+        {
+            CanReadChangeLog = await AuthorizationService
+                .IsGrantedAsync(ChangeTrackerPermissions.ChangeLogs.Default);
+        }
         private async Task GetChangeLogsAsync()
         {
             Filter.MaxResultCount = PageSize;
