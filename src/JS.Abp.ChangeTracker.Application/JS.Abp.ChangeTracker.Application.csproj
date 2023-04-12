@@ -6,12 +6,13 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>JS.Abp.ChangeTracker</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MiniExcel" Version="1.26.2" />
-    <PackageReference Include="Volo.Abp.Ddd.Application" Version="7.1.0" />
-    <PackageReference Include="Volo.Abp.AutoMapper" Version="7.1.0" />
+    <PackageReference Include="Volo.Abp.Ddd.Application" Version="$(VoloAbpPackageVersion)" />
+    <PackageReference Include="Volo.Abp.AutoMapper" Version="$(VoloAbpPackageVersion)" />
     <ProjectReference Include="..\JS.Abp.ChangeTracker.Application.Contracts\JS.Abp.ChangeTracker.Application.Contracts.csproj" />
     <ProjectReference Include="..\JS.Abp.ChangeTracker.Domain\JS.Abp.ChangeTracker.Domain.csproj" />
   </ItemGroup>

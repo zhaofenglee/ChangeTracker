@@ -6,11 +6,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
     <RootNamespace>JS.Abp.ChangeTracker</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="7.1.0" />
-    <PackageReference Include="Volo.Abp.Caching" Version="7.1.0" />
+    <PackageReference Include="Volo.Abp.Ddd.Domain" Version="$(VoloAbpPackageVersion)" />
+    <PackageReference Include="Volo.Abp.Caching" Version="$(VoloAbpPackageVersion)" />
     <ProjectReference Include="..\JS.Abp.ChangeTracker.Domain.Shared\JS.Abp.ChangeTracker.Domain.Shared.csproj" />
   </ItemGroup>
 
